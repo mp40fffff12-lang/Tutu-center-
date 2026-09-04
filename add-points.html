@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Points</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="hero-header">
+
+    <h1>💰 Add Points</h1>
+    <p>Deposit money and get Points</p>
+
+</header>
+
+
+<main class="container">
+
+    <div class="deposit-card">
+
+        <h2>💳 Deposit Points</h2>
+
+        <label>Amount (Rs.)</label>
+
+        <input
+            type="number"
+            id="amount"
+            placeholder="Enter amount"
+            min="1"
+        >
+
+
+        <label>Payment Method</label>
+
+        <select id="paymentMethod">
+
+            <option value="">Select Payment Method</option>
+
+            <option value="eSewa">eSewa</option>
+
+            <option value="Khalti">Khalti</option>
+
+            <option value="IME Pay">IME Pay</option>
+
+            <option value="Bank Transfer">Bank Transfer</option>
+
+        </select>
+
+
+        <div id="paymentBox" class="payment-box">
+
+            <h3>💳 Payment Details</h3>
+
+            <p id="paymentText">
+                Select a payment method.
+            </p>
+
+            <img
+                id="paymentQR"
+                src=""
+                alt="Payment QR"
+                style="display:none;"
+            >
+
+        </div>
+
+
+        <label>Payment Screenshot</label>
+
+        <input
+            type="file"
+            id="paymentProof"
+            accept="image/*"
+        >
+
+
+        <button id="submitDeposit">
+            💰 Submit Deposit
+        </button>
+
+
+        <p id="message"></p>
+
+
+        <a href="index.html" class="back-button">
+            ← Back
+        </a>
+
+    </div>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="add-points.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Orders</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+background:#0f172a;
+color:white;
+font-family:Arial,sans-serif;
+margin:0;
+}
+
+header{
+background:linear-gradient(90deg,#2563eb,#7c3aed);
+padding:20px;
+text-align:center;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+#searchUid{
+width:100%;
+padding:12px;
+font-size:16px;
+border-radius:8px;
+border:none;
+margin-bottom:20px;
+}
+
+.order-card{
+background:#1e293b;
+padding:15px;
+border-radius:12px;
+margin-bottom:15px;
+border-left:5px solid #2563eb;
+}
+
+.order-card h3{
+margin:0 0 10px;
+}
+
+.pending{
+color:orange;
+font-weight:bold;
+}
+
+.completed{
+color:lime;
+font-weight:bold;
+}
+
+.cancelled{
+color:red;
+font-weight:bold;
+}
+
+a{
+color:#60a5fa;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>📋 My Orders</h1>
+
+<p>Search your UID or view all orders</p>
+
+</header>
+
+<div class="container">
+
+<input
+type="text"
+id="searchUid"
+placeholder="🔍 Search by UID...">
+
+<div id="ordersList">
+
+Loading Orders...
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="orders.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1>🛠 Admin Dashboard</h1>
+<p>Our Topup Center</p>
+</header>
+
+<section class="card">
+
+<h2>📊 Dashboard</h2>
+
+  <div style="margin:20px 0;">
+
+<input
+type="text"
+id="searchInput"
+placeholder="🔍 Search by UID or Order ID"
+style="
+width:70%;
+padding:12px;
+border-radius:8px;
+border:none;
+font-size:16px;
+">
+
+<button
+id="searchBtn"
+style="
+padding:12px 20px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+background:#2563eb;
+color:white;
+font-size:16px;
+">
+
+Search
+
+</button>
+
+</div>
+
+<div id="searchResult"></div>
+
+<p>📦 Total Orders : <span id="totalOrders">0</span></p>
+
+<p>🟡 Pending : <span id="pendingOrders">0</span></p>
+
+<p>🟢 Completed : <span id="completedOrders">0</span></p>
+
+<p>❌ Cancelled : <span id="cancelledOrders">0</span></p>
+
+</section>
+
+<section>
+
+<a href="pending.html">
+<button>🟡 Pending Orders</button>
+</a>
+
+<br><br>
+
+<a href="completed.html">
+<button>🟢 Completed Orders</button>
+</a>
+
+<br><br>
+
+<a href="cancelled.html">
+<button>❌ Cancelled Orders</button>
+</a>
+
+
+  <a href="points.html" class="admin-button">
+    💰 Points Deposits
+  </a>
+
+<br><br>
+
+<a href="index.html">
+<button>⬅ Back Home</button>
+</a>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="admin.js"></script>
+
+</body>
+</html>

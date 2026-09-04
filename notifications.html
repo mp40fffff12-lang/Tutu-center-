@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Notifications</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .notifications-page {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px 15px;
+        }
+
+        .notifications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .notifications-header h2 {
+            margin: 0;
+        }
+
+        .notification-card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 7px rgba(0,0,0,.06);
+        }
+
+        .notification-card.unread {
+            border-left: 4px solid #2563eb;
+        }
+
+        .notification-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .notification-message {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .notification-time {
+            color: #999;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .empty-notifications {
+            text-align: center;
+            padding: 40px 15px;
+            color: #777;
+        }
+
+        .back-notifications {
+            display: inline-block;
+            margin-bottom: 15px;
+            padding: 9px 14px;
+            background: #fff;
+            color: #222;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🔔 Notifications</h1>
+    <p>Stay updated about your orders</p>
+</header>
+
+<div class="notifications-page">
+
+    <a href="index.html" class="back-notifications">
+        ← Back to Home
+    </a>
+
+    <div class="notifications-header">
+        <h2>Your Notifications</h2>
+    </div>
+
+    <div id="notificationsList">
+        Loading notifications...
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://kxswfgheuihgndtlvzqf.supabase.co";
+const SUPABASE_KEY = "sb_publishable_1u_jlW3DDNGVRVe2He6dnQ_QYiiyWTJ";
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+async function loadNotifications() {
+
+    const list = document.getElementById("notificationsList");
+
+    const customerID = localStorage.getItem("CustomerID");
+
+    if (!customerID) {
+        list.innerHTML = `
+            <div class="empty-notifications">
+                🔔 No customer session found.
+            </div>
+        `;
+        return;
+    }
+
+    const { data, error } = await supabaseClient
+        .from("notifications")
+        .select("*")
+        .eq("CustomerID", customerID)
+        .order("created_at", {
+            ascending: false
+        });
+
+    if (error) {
+        console.log(error);
+
+        list.innerHTML = `
+            <div class="empty-notifications">
+                ❌ Failed to load notifications.
+            </div>
+        `;
+
+        return;
+    }
+
+    if (!data || data.length === 0) {
+
+        list.innerHTML = `
+            <div class="empty-notifications">
+                🔔 You don't have any notifications yet.
+            </div>
+        `;
+
+        return;
+    }
+
+    list.innerHTML = data.map(notification => `
+
+        <div class="notification-card ${notification.IsRead ? "" : "unread"}">
+
+            <div class="notification-title">
+                ${notification.title || "Notification"}
+            </div>
+
+            <div class="notification-message">
+                ${notification.message || ""}
+            </div>
+
+            <div class="notification-time">
+                ${notification.created_at
+                    ? new Date(notification.created_at).toLocaleString()
+                    : ""}
+            </div>
+
+        </div>
+
+    `).join("");
+
+    // Mark displayed notifications as read
+    const unreadIDs = data
+        .filter(n => !n.IsRead)
+        .map(n => n.id);
+
+    if (unreadIDs.length > 0) {
+
+        await supabaseClient
+            .from("notifications")
+            .update({
+                IsRead: true
+            })
+            .in("id", unreadIDs);
+    }
+}
+
+loadNotifications();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Points Deposits</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="hero-header">
+    <h1>💰 Points Deposits</h1>
+    <p>Manage customer point deposits</p>
+</header>
+
+<main class="container">
+
+    <div class="admin-tabs">
+
+        <button onclick="showDeposits('Pending')">
+            🟡 Pending
+        </button>
+
+        <button onclick="showDeposits('Completed')">
+            ✅ Completed
+        </button>
+
+        <button onclick="showDeposits('Cancelled')">
+            ❌ Cancelled
+        </button>
+
+    </div>
+
+    <div id="depositsList">
+        ⏳ Loading...
+    </div>
+
+    <a href="admin.html" class="back-button">
+        ← Admin Panel
+    </a>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="points.js"></script>
+
+</body>
+</html>
